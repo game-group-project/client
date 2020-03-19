@@ -21,6 +21,7 @@ export default new Vuex.Store({
         ...state.players.filter(element => element.name !== data.name),
         data
       ]
+      state.score = data.score
     },
     ADD_PLAYER (state, player) {
       state.players.push(player)

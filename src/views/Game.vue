@@ -41,13 +41,6 @@ export default {
     })
   },
   methods: {
-    addScore () {
-      const data = {
-        name: this.name,
-        score: this.score
-      }
-      this.$store.dispatch('sendScore', data)
-    },
     startGame () {
       this.$store.dispatch('startGame')
     }
