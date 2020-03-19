@@ -67,5 +67,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    finishedPlayerCount (state) {
+      const finishedPlayers = state.players.filter(element => element.isFinished === true)
+      return finishedPlayers.length
+    }
   }
 })
