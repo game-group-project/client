@@ -2,8 +2,13 @@
   <div>
     <h1>This is the game page</h1>
     <div class="score">
-      Players : 
-      {{ players }}
+      Players :
+      <ul>
+        <li v-for="player in players" :key="player.name">{{ `${player.name} | ${player.score}` }}</li>
+      </ul>
+    </div>
+    <div class="row">
+      <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
     </div>
   </div>
 </template>
@@ -23,6 +28,9 @@ export default {
     this.socket.on('on-broadcast-score', (data) => {
       this.$store.dispatch('onBroadcastScore', data)
     })
+    this.socket.on('on-start-game', () => {
+
+    })
   },
   methods: {
     addScore () {
@@ -31,6 +39,9 @@ export default {
         score: this.score
       }
       this.$store.dispatch('sendScore', data)
+    },
+    startGame () {
+      this.$store.dispatch('startGame')
     }
   },
   computed: {
@@ -45,6 +56,12 @@ export default {
     },
     players () {
       return this.$store.state.players
+    },
+    playerCount () {
+      return this.$store.state.players.length
+    },
+    isPlaying () {
+      return this.$store.state.isPlaying
     }
   }
 }
