@@ -18,6 +18,9 @@ export default new Vuex.Store({
         ...state.players.filter(element => element.name !== data.name),
         data
       ]
+    },
+    ADD_PLAYER (state, data) {
+      state.players.push(data)
     }
   },
   actions: {
@@ -27,6 +30,9 @@ export default new Vuex.Store({
     },
     onBroadcastScore ({ commit }, data) {
       commit('SET_SCORE', data)
+    },
+    onPlayerJoined ({ commit }, data) {
+      commit('ADD_PLAYER', data)
     }
   },
   getters: {
