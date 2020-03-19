@@ -1,9 +1,9 @@
 <template>
   <div class="row ml-5 mr-5 mt-5">
-      <Card
-      v-for="(card, i) in $store.state.cards" :key="i"
-      :card="card"
-      />
+    <Card
+    v-for="(card, i) in $store.state.cards" :key="i"
+    :card="card"
+    />
   </div>
 </template>
 
