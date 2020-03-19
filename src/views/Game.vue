@@ -14,6 +14,9 @@
       <!-- Ini untuk card -->
       <CardList v-if="isPlaying"/>
     </div>
+    <div class="row" v-if="finishedPlayerCount === playerCount">
+      <h1>Game Finished!</h1>
+    </div>
   </div>
 </template>
 
@@ -63,6 +66,9 @@ export default {
     },
     isPlaying () {
       return this.$store.state.isPlaying
+    },
+    finishedPlayerCount () {
+      return this.$store.getters.finishedPlayerCount
     }
   }
 }

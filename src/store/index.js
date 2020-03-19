@@ -23,8 +23,8 @@ export default new Vuex.Store({
       ]
       state.score = data.score
     },
-    ADD_PLAYER (state, player) {
-      state.players.push(player)
+    ADD_PLAYER (state, players) {
+      state.players = players
     },
     SET_NAME (state, data) {
       state.name = data
@@ -39,7 +39,7 @@ export default new Vuex.Store({
   actions: {
     sendScore ({ state, commit }, data) {
       commit('SET_SCORE', data)
-      state.socket.emit(('send-score', data))
+      state.socket.emit('send-score', data)
     },
     onBroadcastScore ({ commit }, data) {
       commit('SET_SCORE', data)
@@ -50,8 +50,7 @@ export default new Vuex.Store({
     setPlayerName ({ commit }, name) {
       commit('SET_NAME', name)
     },
-    joinGame ({ commit, state }, player) {
-      commit('ADD_PLAYER', player)
+    joinGame ({ state }, player) {
       state.socket.emit('join-game', player)
     },
     startGame ({ commit, state }) {
@@ -61,11 +60,16 @@ export default new Vuex.Store({
     },
     onStartGame ({ commit }) {
       commit('START_GAME')
+      commit('RANDOM_CARDS')
     },
     randomCards ({ commit }) {
       commit('RANDOM_CARDS')
     }
   },
   getters: {
+    finishedPlayerCount (state) {
+      const finishedPlayers = state.players.filter(element => element.isFinished === true)
+      return finishedPlayers.length
+    }
   }
 })

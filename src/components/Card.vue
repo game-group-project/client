@@ -4,7 +4,7 @@
     width="270px"
     height="300px"
     :flipped="flipped"
-    @click="onClick">
+    @click="changeCard">
       <div slot="back">
         <div class="card mb-3 shadow-sm text-center">
           <div class="card-img-overlay d-flex justify-content-center align-items-center">
@@ -32,7 +32,6 @@ import Flip from 'vue-flipper'
 export default {
   data () {
     return {
-      isClick: false,
       flipped: false
     }
   },
@@ -42,7 +41,7 @@ export default {
   props: ['card'],
   methods: {
     changeCard () {
-      this.isClick = true
+      this.flipped = !this.flipped
       const player = {
         name: this.name,
         score: this.score + this.card,
@@ -52,9 +51,6 @@ export default {
       setTimeout(() => {
         this.$emit('randomCards')
       }, 1000)
-    },
-    onClick () {
-      this.flipped = !this.flipped
     }
   },
   computed: {
