@@ -1,5 +1,19 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <CardList/>
   </div>
 </template>
+
+<script>
+import CardList from '../components/CardList'
+
+export default {
+  data () {
+    return {
+    }
+  },
+  components: {
+    CardList
+  }
+}
+</script>
