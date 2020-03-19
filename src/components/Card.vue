@@ -4,7 +4,7 @@
     v-if="isClick"
     >
       <div class="card-img-overlay d-flex justify-content-center align-items-center">
-        <h1 class="card-title">1</h1>
+        <h1 class="card-title">{{ card }}</h1>
       </div>
       <div class="p-3">
         <img class="img-fluid" src="../assets/CardTemplate.png" alt="">
@@ -28,6 +28,7 @@ export default {
       isClick: false
     }
   },
+  props: ['card'],
   methods: {
     changeCard () {
       this.isClick = true

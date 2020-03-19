@@ -10,7 +10,8 @@ export default new Vuex.Store({
     socket,
     name: '',
     score: 0,
-    players: []
+    players: [],
+    cards: [(Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9))]
   },
   mutations: {
     SET_SCORE (state, data) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     ADD_PLAYER (state, data) {
       state.players.push(data)
+    },
+    SET_NAME (state, data) {
+      state.name = data
     }
   },
   actions: {
@@ -33,6 +37,9 @@ export default new Vuex.Store({
     },
     onPlayerJoined ({ commit }, data) {
       commit('ADD_PLAYER', data)
+    },
+    setNamePlayer ({ commit }, data) {
+      commit('SET_NAME', data)
     }
   },
   getters: {
