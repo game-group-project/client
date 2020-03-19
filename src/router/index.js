@@ -22,7 +22,10 @@ const routes = [
   {
     path: '/game',
     name: 'Game',
-    component: Game
+    component: Game,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -30,6 +33,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const name = localStorage.getItem('name')
+    if (name) {
+      next()
+    } else {
+      next({
+        path: '/'
+      })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
