@@ -12,7 +12,8 @@ export default new Vuex.Store({
     score: 0,
     isPlaying: false,
     players: [],
-    cards: [(Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9))]
+    playCount: 0, // digunakan untuk menghitung berapa kali sudah memilih kartu. ketika sudah mencapai 5 kali. maka rubah player isFinished jadi true
+    cards: []
   },
   mutations: {
     SET_SCORE (state, data) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     START_GAME (state) {
       state.isPlaying = true
+    },
+    RANDOM_CARDS (state) {
+      state.cards = [(Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9))]
     }
   },
   actions: {
@@ -51,7 +55,14 @@ export default new Vuex.Store({
     },
     startGame ({ commit, state }) {
       commit('START_GAME')
+      commit('RANDOM_CARDS')
       state.socket.emit('start-game')
+    },
+    onStartGame ({ commit }) {
+      commit('START_GAME')
+    },
+    randomCards ({ commit }) {
+      commit('RANDOM_CARDS')
     }
   },
   getters: {

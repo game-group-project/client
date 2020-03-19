@@ -29,9 +29,15 @@ export default {
     }
   },
   props: ['card'],
+  created () {
+    console.log(this.card)
+  },
   methods: {
     changeCard () {
       this.isClick = true
+      setTimeout(() => {
+        this.$emit('randomCards')
+      }, 1000)
     }
   }
 }

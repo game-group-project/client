@@ -10,11 +10,19 @@
     <div class="row">
       <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
     </div>
+    <div class="row">
+      <!-- Ini untuk card -->
+      <CardList v-if="isPlaying"/>
+    </div>
   </div>
 </template>
 
 <script>
+import CardList from '../components/CardList'
 export default {
+  components: {
+    CardList
+  },
   created () {
     const player = {
       name: this.name,
@@ -29,7 +37,7 @@ export default {
       this.$store.dispatch('onBroadcastScore', data)
     })
     this.socket.on('on-start-game', () => {
-
+      this.$store.dispatch('onStartGame')
     })
   },
   methods: {
