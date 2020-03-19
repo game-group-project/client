@@ -13,12 +13,13 @@
     <div class="row">
       <!-- Ini untuk card -->
       <CardList v-if="isPlaying && !gameFinished"/>
-      <h1 v-if="gameFinished">Game Finished!</h1>
+      <h1 v-if="gameFinished">Game Finished! Waiting other player to finish!</h1>
     </div>
     <div class="row" v-if="finishedPlayerCount === playerCount">
       <h1>Highest Score : </h1>
       <h2>Name : {{ highestScore.name }}</h2>
       <h2>Name : {{ highestScore.score }}</h2>
+      <button class="btn btn-primary" @click="restartGame">Restart Game</button>
     </div>
   </div>
 </template>
@@ -49,6 +50,10 @@ export default {
   methods: {
     startGame () {
       this.$store.dispatch('startGame')
+    },
+    restartGame () {
+      this.$store.dispatch('restartGame')
+      this.$router.push('/')
     }
   },
   computed: {
