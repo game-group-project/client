@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     socket,
-    name: '',
+    name: localStorage.getItem('name') || '',
     score: 0,
     isPlaying: false,
     gameFinished: false,
@@ -41,6 +41,18 @@ export default new Vuex.Store({
     },
     SET_GAME_FINISHED (state) {
       state.gameFinished = true
+    },
+    RESTART_GAME (state) {
+      state = {
+        socket,
+        name: '',
+        score: 0,
+        isPlaying: false,
+        gameFinished: false,
+        players: [],
+        playCount: 0,
+        cards: []
+      }
     }
   },
   actions: {
@@ -75,6 +87,11 @@ export default new Vuex.Store({
     },
     setGameFinished ({ commit }) {
       commit('SET_GAME_FINISHED')
+    },
+    restartGame ({ commit, state }) {
+      commit('RESTART_GAME')
+      localStorage.clear()
+      state.socket.emit('restart-game')
     }
   },
   getters: {
