@@ -12,10 +12,13 @@
     </div>
     <div class="row">
       <!-- Ini untuk card -->
-      <CardList v-if="isPlaying"/>
+      <CardList v-if="isPlaying && !gameFinished"/>
+      <h1 v-if="gameFinished">Game Finished!</h1>
     </div>
     <div class="row" v-if="finishedPlayerCount === playerCount">
-      <h1>Game Finished!</h1>
+      <h1>Highest Score : </h1>
+      <h2>Name : {{ highestScore.name }}</h2>
+      <h2>Name : {{ highestScore.score }}</h2>
     </div>
   </div>
 </template>
@@ -69,6 +72,12 @@ export default {
     },
     finishedPlayerCount () {
       return this.$store.getters.finishedPlayerCount
+    },
+    highestScore () {
+      return this.$store.getters.highestScore
+    },
+    gameFinished () {
+      return this.$store.state.gameFinished
     }
   }
 }

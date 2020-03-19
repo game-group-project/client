@@ -42,10 +42,15 @@ export default {
   methods: {
     changeCard () {
       this.flipped = !this.flipped
+      let isFinished = false
+      if (this.playCount === 4) {
+        isFinished = true
+        this.$store.dispatch('setGameFinished')
+      }
       const player = {
         name: this.name,
         score: this.score + this.card,
-        isFinished: false
+        isFinished
       }
       this.$store.dispatch('sendScore', player)
       setTimeout(() => {
@@ -59,6 +64,9 @@ export default {
     },
     name () {
       return this.$store.state.name
+    },
+    playCount () {
+      return this.$store.state.playCount
     }
   }
 }

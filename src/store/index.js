@@ -11,6 +11,7 @@ export default new Vuex.Store({
     name: '',
     score: 0,
     isPlaying: false,
+    gameFinished: false,
     players: [],
     playCount: 0, // digunakan untuk menghitung berapa kali sudah memilih kartu. ketika sudah mencapai 5 kali. maka rubah player isFinished jadi true
     cards: []
@@ -34,11 +35,18 @@ export default new Vuex.Store({
     },
     RANDOM_CARDS (state) {
       state.cards = [(Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9))]
+    },
+    SET_PLAYCOUNT (state) {
+      state.playCount += 1
+    },
+    SET_GAME_FINISHED (state) {
+      state.gameFinished = true
     }
   },
   actions: {
     sendScore ({ state, commit }, data) {
       commit('SET_SCORE', data)
+      commit('SET_PLAYCOUNT')
       state.socket.emit('send-score', data)
     },
     onBroadcastScore ({ commit }, data) {
@@ -64,12 +72,18 @@ export default new Vuex.Store({
     },
     randomCards ({ commit }) {
       commit('RANDOM_CARDS')
+    },
+    setGameFinished ({ commit }) {
+      commit('SET_GAME_FINISHED')
     }
   },
   getters: {
     finishedPlayerCount (state) {
       const finishedPlayers = state.players.filter(element => element.isFinished === true)
       return finishedPlayers.length
+    },
+    highestScore (state) {
+      return state.players.sort((a, b) => a.score < b.score)[0]
     }
   }
 })
