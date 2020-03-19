@@ -25,7 +25,7 @@ export default {
   methods: {
     setName () {
       localStorage.name = this.name
-      this.$store.dispatch('setNamePlayer', this.name)
+      this.$store.dispatch('setPlayerName', this.name)
       this.$router.push('/game')
     }
   }

@@ -43,9 +43,26 @@ export default {
   methods: {
     changeCard () {
       this.isClick = true
+      const player = {
+        name: this.name,
+        score: this.score + this.card,
+        isFinished: false
+      }
+      this.$store.dispatch('sendScore', player)
+      setTimeout(() => {
+        this.$emit('randomCards')
+      }, 1000)
     },
     onClick () {
       this.flipped = !this.flipped
+    }
+  },
+  computed: {
+    score () {
+      return this.$store.state.score
+    },
+    name () {
+      return this.$store.state.name
     }
   }
 }
