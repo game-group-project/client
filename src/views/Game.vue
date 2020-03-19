@@ -11,6 +11,12 @@
 <script>
 export default {
   created () {
+    const player = {
+      name: this.name,
+      score: this.score,
+      isFinished: false
+    }
+    this.$store.dispatch('joinGame', player)
     this.socket.on('on-player-joined', (data) => {
       this.$store.dispatch('onPlayerJoined', data)
     })

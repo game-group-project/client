@@ -20,8 +20,8 @@ export default new Vuex.Store({
         data
       ]
     },
-    ADD_PLAYER (state, data) {
-      state.players.push(data)
+    ADD_PLAYER (state, player) {
+      state.players.push(player)
     },
     SET_NAME (state, data) {
       state.name = data
@@ -35,11 +35,15 @@ export default new Vuex.Store({
     onBroadcastScore ({ commit }, data) {
       commit('SET_SCORE', data)
     },
-    onPlayerJoined ({ commit }, data) {
-      commit('ADD_PLAYER', data)
+    onPlayerJoined ({ commit }, player) {
+      commit('ADD_PLAYER', player)
     },
-    setNamePlayer ({ commit }, data) {
-      commit('SET_NAME', data)
+    setPlayerName ({ commit }, name) {
+      commit('SET_NAME', name)
+    },
+    joinGame ({ commit, store }, player) {
+      commit('ADD_PLAYER', player)
+      store.socket.emit('join-game', player)
     }
   },
   getters: {
