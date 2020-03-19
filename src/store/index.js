@@ -10,6 +10,7 @@ export default new Vuex.Store({
     socket,
     name: '',
     score: 0,
+    isPlaying: false,
     players: [],
     cards: [(Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9)), (Math.ceil(Math.random() * 9))]
   },
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     SET_NAME (state, data) {
       state.name = data
+    },
+    START_GAME (state) {
+      state.isPlaying = true
     }
   },
   actions: {
@@ -41,9 +45,13 @@ export default new Vuex.Store({
     setPlayerName ({ commit }, name) {
       commit('SET_NAME', name)
     },
-    joinGame ({ commit, store }, player) {
+    joinGame ({ commit, state }, player) {
       commit('ADD_PLAYER', player)
-      store.socket.emit('join-game', player)
+      state.socket.emit('join-game', player)
+    },
+    startGame ({ commit, state }) {
+      commit('START_GAME')
+      state.socket.emit('start-game')
     }
   },
   getters: {
