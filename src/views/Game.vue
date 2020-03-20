@@ -3,27 +3,25 @@
     <div class="d-flex align-items-center flex-column">
       <img src="../assets/logo.png" alt="">
     </div>
-    <div v-if="finishedPlayerCount !== playerCount">
-      <h1 style="text-align: center" v-if="gameFinished">Game Finished! Waiting other player to finish!</h1>
-      <div class="d-flex justify-content-between mb-2">
-        <h3 style="margin-right:100px">Players :</h3>
-        <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
-      </div>
-      <ul class="list-group d-flex flex-row">
-        <li class="list-group-item d-flex align-items-center mr-3 mb-1"
-        v-for="player in players" :key="player.name"
-        >
-          {{ player.name }}
-          <span class="badge badge-primary badge-pill ml-3"> {{ player.score }}</span>
-        </li>
-      </ul>
-      <div class="row">
-        <div class="col">
-          <CardList v-if="isPlaying && !gameFinished"/>
-        </div>
+    <h1 style="text-align: center" v-if="gameFinished && finishedPlayerCount !== playerCount">Game Finished! Waiting other player to finish!</h1>
+    <div class="d-flex justify-content-between mb-2">
+      <h3 style="margin-right:100px">Players :</h3>
+      <button v-if="playerCount >= 2 && !isPlaying && finishedPlayerCount !== playerCount" @click="startGame" class="btn btn-primary">Start Game</button>
+    </div>
+    <ul class="list-group d-flex flex-row">
+      <li class="list-group-item d-flex align-items-center mr-3 mb-1"
+      v-for="player in players" :key="player.name"
+      >
+        {{ player.name }}
+        <span class="badge badge-primary badge-pill ml-3"> {{ player.score }}</span>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col">
+        <CardList v-if="isPlaying && !gameFinished"/>
       </div>
     </div>
-    <div v-else>
+    <div v-if="finishedPlayerCount === playerCount">
       <div v-if="typeof highestScore !== 'string'" class="d-flex align-items-center flex-column">
         <br>
         <h1>Highest Score : </h1><br>
