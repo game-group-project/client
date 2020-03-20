@@ -42,20 +42,25 @@ export default {
   methods: {
     changeCard () {
       this.flipped = !this.flipped
-      let isFinished = false
       if (this.playCount === 4) {
-        isFinished = true
+        const player = {
+          name: this.name,
+          score: this.score + this.card,
+          isFinished: true
+        }
+        this.$store.dispatch('sendScore', player)
         this.$store.dispatch('setGameFinished')
+      } else {
+        const player = {
+          name: this.name,
+          score: this.score + this.card,
+          isFinished: false
+        }
+        this.$store.dispatch('sendScore', player)
+        setTimeout(() => {
+          this.$emit('randomCards')
+        }, 1000)
       }
-      const player = {
-        name: this.name,
-        score: this.score + this.card,
-        isFinished
-      }
-      this.$store.dispatch('sendScore', player)
-      setTimeout(() => {
-        this.$emit('randomCards')
-      }, 1000)
     }
   },
   computed: {
