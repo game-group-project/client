@@ -34,7 +34,7 @@ export default {
   created () {
     const player = {
       name: this.name,
-      score: this.score,
+      score: 0,
       isFinished: false
     }
     this.$store.dispatch('joinGame', player)
