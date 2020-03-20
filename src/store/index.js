@@ -41,18 +41,22 @@ export default new Vuex.Store({
     },
     SET_GAME_FINISHED (state) {
       state.gameFinished = true
+      state.isPlaying = false
     },
     RESTART_GAME (state) {
-      state = {
-        socket,
-        name: '',
-        score: 0,
-        isPlaying: false,
-        gameFinished: false,
-        players: [],
-        playCount: 0,
-        cards: []
-      }
+      state.name = ''
+      state.score = 0
+      state.isPlaying = false
+      state.gameFinished = false
+      state.players = []
+      state.playCount = 0
+      state.cards = []
+    },
+    BROADCAST_SCORE (state, data) {
+      state.players = [
+        ...state.players.filter(element => element.name !== data.name),
+        data
+      ]
     }
   },
   actions: {
@@ -62,7 +66,7 @@ export default new Vuex.Store({
       state.socket.emit('send-score', data)
     },
     onBroadcastScore ({ commit }, data) {
-      commit('SET_SCORE', data)
+      commit('BROADCAST_SCORE', data)
     },
     onPlayerJoined ({ commit }, player) {
       commit('ADD_PLAYER', player)
@@ -104,6 +108,10 @@ export default new Vuex.Store({
       return finishedPlayers.length
     },
     highestScore (state) {
+      const data = state.players.sort((a, b) => a.score < b.score)
+      if (data[0] === data[1]) {
+        return 'seri'
+      }
       return state.players.sort((a, b) => a.score < b.score)[0]
     }
   }
