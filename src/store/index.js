@@ -92,6 +92,10 @@ export default new Vuex.Store({
       commit('RESTART_GAME')
       localStorage.clear()
       state.socket.emit('restart-game')
+    },
+    onRestartGame ({ commit }) {
+      commit('RESTART_GAME')
+      localStorage.clear()
     }
   },
   getters: {

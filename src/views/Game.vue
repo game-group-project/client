@@ -6,6 +6,7 @@
       <ul>
         <li v-for="player in players" :key="player.name">{{ `${player.name} | ${player.score}` }}</li>
       </ul>
+      <button class="btn btn-primary" v-if="isPlaying" @click="restartGame">Restart Game</button>
     </div>
     <div class="row">
       <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
@@ -46,6 +47,10 @@ export default {
     this.socket.on('on-start-game', () => {
       this.$store.dispatch('onStartGame')
     })
+    this.socket.on('on-restart-game', () => {
+      this.$store.dispatch('onRestartGame')
+      this.$router.push('/')
+    })
   },
   methods: {
     startGame () {
@@ -79,7 +84,7 @@ export default {
       return this.$store.getters.finishedPlayerCount
     },
     highestScore () {
-      return this.$store.getters.highestScore
+      return this.$store.getters.highestScore || {}
     },
     gameFinished () {
       return this.$store.state.gameFinished
