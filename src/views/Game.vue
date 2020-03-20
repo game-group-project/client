@@ -9,18 +9,26 @@
       <button class="btn btn-primary" v-if="isPlaying" @click="restartGame">Restart Game</button>
     </div>
     <div class="row">
-      <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
+      <button v-if="playerCount >= 2 && !isPlaying && !gameFinished" @click="startGame" class="btn btn-primary">Start Game</button>
     </div>
     <div class="row">
-      <!-- Ini untuk card -->
-      <CardList v-if="isPlaying && !gameFinished"/>
-      <h1 v-if="gameFinished">Game Finished! Waiting other player to finish!</h1>
+      <div class="col">
+        <CardList v-if="isPlaying && !gameFinished"/>
+        <h1 v-if="gameFinished">Game Finished! Waiting other player to finish!</h1>
+      </div>
     </div>
     <div class="row" v-if="finishedPlayerCount === playerCount">
-      <h1>Highest Score : </h1>
-      <h2>Name : {{ highestScore.name }}</h2>
-      <h2>Name : {{ highestScore.score }}</h2>
-      <button class="btn btn-primary" @click="restartGame">Restart Game</button>
+      <div class="col">
+        <div v-if="typeof highestScore !== 'string'">
+          <h1>Highest Score : </h1><br><br>
+          <h2>Name : {{ highestScore.name }}</h2><br><br>
+          <h2>Score : {{ highestScore.score }}</h2><br><br>
+        </div>
+        <div v-else>
+          <h1>DRAW</h1>
+        </div>
+        <button class="btn btn-primary" @click="restartGame">Restart Game</button>
+      </div>
     </div>
   </div>
 </template>
