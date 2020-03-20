@@ -109,7 +109,7 @@ export default new Vuex.Store({
     },
     highestScore (state) {
       const data = state.players.sort((a, b) => a.score < b.score)
-      if (data[0] === data[1]) {
+      if (data[0].score === data[1].score) {
         return 'seri'
       }
       return state.players.sort((a, b) => a.score < b.score)[0]
