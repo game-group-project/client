@@ -1,6 +1,7 @@
 <template>
   <div class="about">
     <CardList/>
+    <h1>test</h1>
   </div>
 </template>
 
