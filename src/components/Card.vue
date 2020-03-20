@@ -8,7 +8,7 @@
       <div slot="back">
         <div class="card mb-3 shadow-sm text-center">
           <div class="card-img-overlay d-flex justify-content-center align-items-center">
-            <h1 class="card-title">{{ card }}</h1>
+            <h1 class="card-title" style="font-family:Verdana, Geneva, Tahoma, sans-serif;font-weight: bolder;font-size: 150px;color: #852222;">{{ card }}</h1>
           </div>
           <div class="p-3">
             <img class="img-fluid" src="../assets/cardFront.png" alt="">
@@ -73,12 +73,6 @@ export default {
 </script>
 
 <style>
-h1 {
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: bolder;
-  font-size: 80px;
-  color: #852222;
-}
 .front {
   background-color: burlywood;
 }

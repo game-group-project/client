@@ -1,15 +1,22 @@
 <template>
   <div>
-    <h1>This is the game page</h1>
-    <div class="score">
-      Players :
-      <ul>
-        <li v-for="player in players" :key="player.name">{{ `${player.name} | ${player.score}` }}</li>
-      </ul>
-      <button class="btn btn-primary" v-if="isPlaying" @click="restartGame">Restart Game</button>
-    </div>
-    <div class="row">
-      <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
+    <div class="d-flex align-items-center flex-column">
+      <img src="../assets/logo.png" alt="">
+      <div class="d-flex mb-2">
+        <h3 style="margin-right:100px">Players :</h3>
+        <button class="btn btn-primary" v-if="isPlaying" @click="restartGame">Restart Game</button>
+        <button v-if="playerCount >= 2 && !isPlaying" @click="startGame" class="btn btn-primary">Start Game</button>
+      </div>
+      <div class="score">
+        <ul class="list-group d-flex flex-row">
+          <li class="list-group-item d-flex justify-content-between align-items-center mr-3 mb-1"
+          v-for="player in players" :key="player.name"
+          >
+            {{ player.name }}
+            <span class="badge badge-primary badge-pill ml-3"> {{ player.score }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="row">
       <!-- Ini untuk card -->
